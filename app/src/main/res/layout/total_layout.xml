@@ -31,5 +31,6 @@
         android:id="@+id/closeTotalButton"
         android:layout_width="125dp"
         android:layout_height="wrap_content"
+        android:onClick="onClosingTotal"
         android:text="Close" />
 </LinearLayout>
