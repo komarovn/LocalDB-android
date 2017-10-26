@@ -8,16 +8,21 @@ import android.widget.ListView;
 
 import com.mobile.localdb.adapter.TableAdapter;
 import com.mobile.localdb.model.Cost;
+import com.mobile.localdb.model.DatabaseOperations;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    private DatabaseOperations db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        this.db = DatabaseOperations.getInstance();
+        this.db.init(openOrCreateDatabase("cost_accounting", MODE_PRIVATE, null));
+
         initTable();
     }
 
@@ -32,7 +37,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initTable() {
-        List<Cost> data = Arrays.asList(new Cost("testing cost", true, 45.20, 1), new Cost("test2", false, 6., 1));
+        db.createCost("testing", true, 45.20);
+        db.createCost("test2", false, 6.);
+        List<Cost> data = db.getData();
 
         ListView table = (ListView) findViewById(R.id.dataTable);
         TableAdapter adapter = new TableAdapter(data, this);

@@ -1,16 +1,26 @@
 package com.mobile.localdb.model;
 
 public class Cost {
+    private int id;
     private String name;
     private boolean isAsset;
     private Double amount;
     private int version;
 
-    public Cost(String name, boolean isAsset, Double amount, int version) {
+    public Cost(int id, String name, boolean isAsset, Double amount, int version) {
+        this.id = id;
         this.name = name;
         this.isAsset = isAsset;
         this.amount = amount;
         this.version = version;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
