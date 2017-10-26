@@ -6,6 +6,13 @@ public class Cost {
     private Double amount;
     private int version;
 
+    public Cost(String name, boolean isAsset, Double amount, int version) {
+        this.name = name;
+        this.isAsset = isAsset;
+        this.amount = amount;
+        this.version = version;
+    }
+
     public String getName() {
         return name;
     }
