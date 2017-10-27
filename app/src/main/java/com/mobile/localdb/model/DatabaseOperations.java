@@ -20,7 +20,7 @@ public class DatabaseOperations {
 
     public void init(SQLiteDatabase db) {
         this.db = db;
-        this.db.execSQL("DROP TABLE IF EXISTS costs;"); // TODO: remove when finished
+        //this.db.execSQL("DROP TABLE IF EXISTS costs;");
         this.db.execSQL("CREATE TABLE IF NOT EXISTS costs(" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "name CHAR(100) NOT NULL," +

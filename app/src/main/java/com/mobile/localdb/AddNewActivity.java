@@ -1,11 +1,12 @@
 package com.mobile.localdb;
 
 import android.content.Intent;
-import android.databinding.InverseBindingAdapter;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.mobile.localdb.model.Cost;
 import com.mobile.localdb.model.DatabaseOperations;
@@ -23,6 +24,9 @@ public class AddNewActivity extends AppCompatActivity {
     }
 
     public void onAddingNew(View view) {
+        newCost.setName(getName());
+        newCost.setAsset(getAssetLiability());
+        newCost.setAmount(getAmount());
         db.createCost(newCost);
         closePanel();
     }
@@ -37,16 +41,17 @@ public class AddNewActivity extends AppCompatActivity {
         finish();
     }
 
-    //@InverseBindingAdapter(attribute = "android:text")
-    public void setName(EditText view) {
-        newCost.setName(view.getText().toString());
+    public String getName() {
+        return ((EditText) findViewById(R.id.nameTextbox)).getText().toString();
     }
 
-    public void setAssetLiability(boolean isAsset) {
-        newCost.setAsset(isAsset);
+    public boolean getAssetLiability() {
+        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.assetLiabilityRadioGroup);
+        int radioId = radioGroup.getCheckedRadioButtonId();
+        return "Asset".equals(((RadioButton) radioGroup.findViewById(radioId)).getText().toString());
     }
 
-    public void setAmount(double amount) {
-        newCost.setAmount(amount);
+    public double getAmount() {
+        return Double.valueOf(((EditText) findViewById(R.id.amountTextBox)).getText().toString());
     }
 }

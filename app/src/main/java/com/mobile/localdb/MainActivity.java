@@ -38,6 +38,12 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(intent, 0);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateData();
+    }
+
     public void onDeleteSelectedItems(View view) {
         for (Integer id : adapter.getSelected()) {
             db.removeCost(id);
@@ -47,8 +53,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initTable() {
-        db.createCost("testing", true, 45.20);
-        db.createCost("test2", false, 6.);
         data = db.getData();
 
         ListView table = (ListView) findViewById(R.id.dataTable);
@@ -57,8 +61,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void updateData() {
-        data.clear();
-        data.addAll(db.getData());
-        adapter.notifyDataSetChanged();
+        if (data != null) {
+            data.clear();
+            data.addAll(db.getData());
+            adapter.notifyDataSetChanged();
+        }
     }
 }
