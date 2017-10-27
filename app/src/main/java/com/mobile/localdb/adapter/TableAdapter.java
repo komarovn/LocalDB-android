@@ -18,6 +18,8 @@ public class TableAdapter extends BaseAdapter {
     private List<Cost> data = new ArrayList<Cost>();
     private Activity owner;
 
+    private List<Integer> selected = new ArrayList<Integer>();
+
     public TableAdapter(List<Cost> data, Activity owner) {
         super();
         this.data = data;
@@ -39,6 +41,14 @@ public class TableAdapter extends BaseAdapter {
         return position;
     }
 
+    public List<Integer> getSelected() {
+        return selected;
+    }
+
+    public void clearSelected() {
+        selected.clear();
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         CostHolder holder;
@@ -57,10 +67,26 @@ public class TableAdapter extends BaseAdapter {
         }
 
         Cost item = data.get(position);
+        holder.getSelection().setTag(item.getId());
+        setSelectionListener(holder.getSelection());
         holder.getName().setText(item.getName());
         holder.getAssetLiability().setText(item.isAsset() ? "Asset" : "Liability");
         holder.getAmount().setText(String.valueOf(item.getAmount()) + " $");
 
         return convertView;
+    }
+
+    private void setSelectionListener(final CheckBox selection) {
+        selection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Integer item = (Integer) selection.getTag();
+                if (selection.isChecked()) {
+                    selected.add(item);
+                } else {
+                    selected.remove((Object) item);
+                }
+            }
+        });
     }
 }

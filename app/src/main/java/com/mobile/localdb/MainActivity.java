@@ -14,6 +14,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private DatabaseOperations db;
+    private List<Cost> data;
+    private TableAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,15 +38,27 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(intent, 0);
     }
 
+    public void onDeleteSelectedItems(View view) {
+        for (Integer id : adapter.getSelected()) {
+            db.removeCost(id);
+        }
+        adapter.clearSelected();
+        updateData();
+    }
+
     private void initTable() {
         db.createCost("testing", true, 45.20);
         db.createCost("test2", false, 6.);
-        List<Cost> data = db.getData();
+        data = db.getData();
 
         ListView table = (ListView) findViewById(R.id.dataTable);
-        TableAdapter adapter = new TableAdapter(data, this);
+        adapter = new TableAdapter(data, this);
         table.setAdapter(adapter);
+    }
 
-        //adapter.notifyDataSetChanged();
+    public void updateData() {
+        data.clear();
+        data.addAll(db.getData());
+        adapter.notifyDataSetChanged();
     }
 }

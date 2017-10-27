@@ -93,6 +93,7 @@
                 android:layout_width="102dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.17"
+                android:onClick="onDeleteSelectedItems"
                 android:text="Delete" />
 
             <Button
