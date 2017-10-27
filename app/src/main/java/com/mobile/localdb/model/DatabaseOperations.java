@@ -20,7 +20,7 @@ public class DatabaseOperations {
 
     public void init(SQLiteDatabase db) {
         this.db = db;
-        this.db.execSQL("DROP TABLE IF EXISTS costs;");
+        this.db.execSQL("DROP TABLE IF EXISTS costs;"); // TODO: remove when finished
         this.db.execSQL("CREATE TABLE IF NOT EXISTS costs(" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "name CHAR(100) NOT NULL," +
@@ -30,7 +30,8 @@ public class DatabaseOperations {
     }
 
     public void createCost(String name, boolean isAsset, double amount) {
-        db.execSQL("INSERT INTO costs ('name', 'is_asset', 'amount', 'version') VALUES ('"+ name + "', " +
+        db.execSQL("INSERT INTO costs ('name', 'is_asset', 'amount', 'version') VALUES ('" +
+                name + "', " +
                 (isAsset ? 1 : 0) + ", " +
                 String.valueOf(amount) + ", null);");
     }
@@ -44,11 +45,11 @@ public class DatabaseOperations {
 
         Cursor cursor = db.rawQuery("SELECT * FROM costs;", null);
         if (cursor.moveToFirst()) {
-            while (cursor.moveToNext()) {
-                Cost cost = new Cost(cursor.getInt(1), cursor.getString(2), cursor.getInt(3) == 1,
-                        cursor.getDouble(4), 1);
+            do {
+                Cost cost = new Cost(cursor.getInt(0), cursor.getString(1),
+                        cursor.getInt(2) == 1, cursor.getDouble(3), cursor.getInt(4));
                 result.add(cost);
-            }
+            } while (cursor.moveToNext());
         }
 
         cursor.close();
