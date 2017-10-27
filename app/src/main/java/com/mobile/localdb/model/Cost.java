@@ -7,6 +7,8 @@ public class Cost {
     private Double amount;
     private int version;
 
+    public Cost() { }
+
     public Cost(int id, String name, boolean isAsset, Double amount, int version) {
         this.id = id;
         this.name = name;

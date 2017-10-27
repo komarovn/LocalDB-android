@@ -29,6 +29,10 @@ public class DatabaseOperations {
                 "version INTEGER);");
     }
 
+    public void createCost(Cost cost) {
+        createCost(cost.getName(), cost.isAsset(), cost.getAmount());
+    }
+
     public void createCost(String name, boolean isAsset, double amount) {
         db.execSQL("INSERT INTO costs ('name', 'is_asset', 'amount', 'version') VALUES ('" +
                 name + "', " +

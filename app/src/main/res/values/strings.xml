@@ -3,4 +3,9 @@
     <string name="amount">Amount</string>
     <string name="asset_liability">Asset/Liability</string>
     <string name="name">Name</string>
+    <string name="add_new">Add New</string>
+    <string name="add">Add</string>
+    <string name="cancel">Cancel</string>
+    <string name="liability">Liability</string>
+    <string name="asset">Asset</string>
 </resources>
